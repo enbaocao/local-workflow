@@ -40,14 +40,14 @@ def main():
         """
         Delete 25 characters before the cursor.
         """
-        event.app.current_buffer.delete_before_cursor(count=25)
+        event.app.current_buffer.delete_before_cursor(count=15)
 
     @kb_edit.add('=') # Changed from '+' to '='
     def _(event):
         """
         Insert a newline character.
         """
-        event.app.current_buffer.insert_text('\\n')
+        event.app.current_buffer.insert_text('\n') # Corrected to insert an actual newline
 
     print("start")
     messages = []
