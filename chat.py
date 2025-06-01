@@ -42,6 +42,13 @@ def main():
         """
         event.app.current_buffer.delete_before_cursor(count=25)
 
+    @kb_edit.add('+')
+    def _(event):
+        """
+        Insert a newline character.
+        """
+        event.app.current_buffer.insert_text('\\n')
+
     print("Starting chat with LLM. Type 'quit' to exit.")
     messages = []
 
@@ -77,8 +84,8 @@ def main():
             final_llm_response = llm_response 
 
             if decision == "edit":
-                # Show plain version for editing, using the kb_edit for '-' functionality
-                edited_response = prompt(f"Edit LLM\\\'s response: ", default=llm_response, key_bindings=kb_edit)
+                # Show plain version for editing, using the kb_edit for '-' and '+' functionality
+                edited_response = prompt(f"Edit LLM\\\\\\'s response: ", default=llm_response, key_bindings=kb_edit)
                 final_llm_response = edited_response
             
             messages.append({"role": "assistant", "content": final_llm_response})
