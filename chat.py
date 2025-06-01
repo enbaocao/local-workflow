@@ -42,17 +42,18 @@ def main():
         """
         event.app.current_buffer.delete_before_cursor(count=25)
 
-    @kb_edit.add('+')
+    @kb_edit.add('=') # Changed from '+' to '='
     def _(event):
         """
         Insert a newline character.
         """
         event.app.current_buffer.insert_text('\\n')
 
-    print("Starting chat with LLM. Type 'quit' to exit.")
+    print("start")
     messages = []
 
     while True:
+        print() # Add a newline before user input
         user_input = input("You: ") # Standard input for user's message
         if user_input.lower() == "quit":
             break
@@ -62,6 +63,7 @@ def main():
         try:
             llm_response = chat_with_llm(api_key, messages)
             
+            print() # Add a newline before LLM output
             # Display the richly formatted response first
             console.print(f"LLM: ", end="")
             console.print(Markdown(llm_response))
@@ -84,7 +86,7 @@ def main():
             final_llm_response = llm_response 
 
             if decision == "edit":
-                # Show plain version for editing, using the kb_edit for '-' and '+' functionality
+                # Show plain version for editing, using the kb_edit for '-' and '=' functionality
                 edited_response = prompt(f"Edit LLM\\\\\\'s response: ", default=llm_response, key_bindings=kb_edit)
                 final_llm_response = edited_response
             
